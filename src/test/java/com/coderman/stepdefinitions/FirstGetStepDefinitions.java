@@ -4,11 +4,19 @@ import com.coderman.pojo.BookingModel;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import org.hamcrest.Matchers;
 import org.junit.Assert;
 
 import static io.restassured.RestAssured.*;
+import io.restassured.RestAssured.*;
+import  io.restassured.matcher.RestAssuredMatchers.*;
+import   org.hamcrest.Matchers.*;
+
+import java.util.List;
+import java.util.Map;
 
 
 public class FirstGetStepDefinitions {
@@ -17,20 +25,32 @@ public class FirstGetStepDefinitions {
     @Given("send get request using the api {string}")
     public void sendGetRequestUsingTheApi(String api) {
 
-        bookingModel = given().contentType("application/json")
-        .when().get(api).then().log().all().extract().as(BookingModel.class);
-        System.out.println(bookingModel);
+
+        RestAssured.baseURI = "https://reqres.in";
+        RestAssured.basePath="/api";
+
+
+        response = given().contentType("application/json")
+        .when().get("/user/2").then().extract().response();
+
+
+
+        response.prettyPrint();
 
     }
 
     @Then("verify firstName")
     public void verifyFirstName() {
-        // expected, actual
-        Assert.assertEquals("Eric",bookingModel.getFirstname());
 
-//        response.then().assertThat().body("firstname", equalTo("Jim"));
+        response.then().assertThat().body("data.id", Matchers.equalTo(2));
+        // expected, actual
+//        Assert.assertEquals("Eric",bookingModel.getFirstname());
+//
 //        JsonPath  jsonPath = response.jsonPath();
-//        jsonPath.
+//        String firstName = jsonPath.getString("data.name");
+//        Map<String,String> list = jsonPath.getMap("$");
+//
+//        Assert.assertEquals(firstName,"fuchsia rose");
 
 //        response.then().assertThat().statusLine("HTTP/1.2 200 OK");
     }
@@ -51,4 +71,33 @@ public class FirstGetStepDefinitions {
 * 
 *
 *
+*
+*
+*
+*
+* Agenda
+
+    reqres.in apis
+    base uri
+    base path
+
+    Get request to get single user
+        -Assertion
+            1. approach
+            asserthat.body()
+
+            2. approach json path
+                jsonpath
+
+            3.Pojo
+                Java class
+
+
+    Get request to get all user
+    Get request single user not found
+
+    crating pojo class for complex json
+*
 * */
+
+
