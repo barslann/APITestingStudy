@@ -60,6 +60,7 @@ public class FirstGetStepDefinitions {
 //        response.then().assertThat().body("lastname", equalTo("Wilson"));
 
     }
+
 }
 
 
