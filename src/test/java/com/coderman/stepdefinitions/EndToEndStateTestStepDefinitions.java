@@ -5,7 +5,6 @@ import com.coderman.pojo.State;
 import com.coderman.pojo.UpdateState;
 import com.coderman.util.Specs;
 import io.cucumber.java.Before;
-import io.cucumber.java.BeforeStep;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.restassured.authentication.PreemptiveBasicAuthScheme;
@@ -14,11 +13,17 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 
+/*
+*
+* "jdbc:postgresql://157.230.48.97:5432/gmibank_db" , "techprodb_user" and "Techpro_@126"
+*
+* */
+
+
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
 public class EndToEndStateTestStepDefinitions {
-
     Response response;
     int stateId;
     Country country;
